@@ -30,7 +30,7 @@ public class OrderDaoService implements OrderDao {
     public int addOrder( UUID id,Orders order) {
         jdbcTemplate.update(
                 "INSERT INTO orders ( id, orderStatus,totalCost) VALUES (?, ?, ?)",
-                id,   order.getOrderStatus(),order.getTotalCost()
+                id,   order.getOrderStatus().ordinal(),order.getTotalCost()
         );
         return 0;
     }
