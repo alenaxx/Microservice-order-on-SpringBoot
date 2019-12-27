@@ -8,11 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,17 +46,17 @@ public class OrderDaoService implements OrderDao {
             UUID orderId =UUID.fromString(resultSet.getString("orderId"));
             UUID itemId =UUID.fromString(resultSet.getString("itemId"));
             int amount = resultSet.getInt("amount");
-            return new OrderItems (itemId,amount);
+            return new OrderItems (orderId,itemId,amount);
         });
     }
 
-    public int addItem(UUID  itemId, OrderItems item) {
+    public void addItem(OrderItems item) {
         jdbcTemplate.update(
                 "INSERT INTO orderItems(  itemId,orderId,amount) VALUES (?, ?, ?)",
-                 itemId,item.getOrderId(), item.getAmount()
+                 item.getItemId(),item.getOrderId(), item.getAmount()
         );
-        return 0;
     }
+
 
     @Override
     public OrderDto setOrderStatus(Orders order, String status) {
@@ -101,7 +96,7 @@ public class OrderDaoService implements OrderDao {
         jdbcTemplate.update(sql,
                 status.ordinal(),order.getId());
         order.setOrderStatus(status);
-        order.setOrderStatus(status);
+       // order.setOrderStatus(status);
         return new OrderDto(order, getOrderItems(order));
     }
     @Override
@@ -110,7 +105,7 @@ public class OrderDaoService implements OrderDao {
     }
     private ArrayList<OrderItems> selectItems(UUID id) {
         ArrayList<OrderItems> orderItems = new ArrayList<>();
-        final String sql ="SELECT itemID, amount FROM orderItems WHERE orderId =?";
+        final String sql ="SELECT itemId, amount FROM orderItems WHERE orderId =?";
         List<Map<String, Object>> resultSet = jdbcTemplate
                 .queryForList(sql, id);
         for (Map res : resultSet) {

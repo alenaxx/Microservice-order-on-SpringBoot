@@ -9,14 +9,13 @@ app:
 
 server:
   port: 8011
-rootProject:
-   name: 'orders-service'
+
 
 spring:
   main:
     allow-bean-definition-overriding: true
   application:
-    name: order-service
+    name: order-client
   rabbitmq:
     host: localhost
     port: 5672
@@ -26,3 +25,9 @@ order:
   rabbitmq:
     exchange: servicesExchange
     routingkey: orders.*
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka
+    instance:
+      preferIpAddress: true

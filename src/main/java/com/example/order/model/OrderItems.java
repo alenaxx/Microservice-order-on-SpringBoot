@@ -9,24 +9,29 @@ public class OrderItems {
     private UUID orderId;
     private int amount;
 
+
+
+
+
     public UUID getItemId() {
-        return  itemId;
+        return  this.itemId;
     }
     public UUID getOrderId() {
-        return  orderId;
+        return  this.orderId;
     }
     public int getAmount() {
-        return amount;
+        return this.amount;
     }
+    public OrderItems(@JsonProperty("itemId") UUID itemId, @JsonProperty("orderId") UUID orderId,@JsonProperty("amount") int amount) {
+        this.itemId = itemId;
+        this.amount = amount;
+        this.orderId=orderId;
 
+    }
 
     public OrderItems(){}
 
-    public OrderItems(@JsonProperty(" itemId") UUID  itemId,
-                      @JsonProperty("amount")  int amount) {
-        this. itemId =  itemId;
-        this.amount = amount;
-    }
+
 
     public void setItemId(UUID itemId) {
         this.itemId=itemId;

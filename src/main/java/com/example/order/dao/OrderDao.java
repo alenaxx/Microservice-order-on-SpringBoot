@@ -1,8 +1,6 @@
 package com.example.order.dao;
 
-import com.example.order.model.OrderDto;
-import com.example.order.model.OrderItems;
-import com.example.order.model.Orders;
+import com.example.order.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +16,14 @@ public interface OrderDao {
     }
 
     List<Orders> getAllOrders();
+
     List<OrderItems> getAllItems();
 
-    int addItem(UUID  itemId, OrderItems items);
+    void addItem(OrderItems items);
 
-    default int addItem(OrderItems items) {
-        UUID itemId = UUID.randomUUID();
-        return addItem( itemId, items);
-    }
-        OrderDto setOrderStatus(Orders order, String status);
+    OrderDto setOrderStatus(Orders order, String status);
+
     Orders getOrderById(UUID id);
-     ArrayList<OrderItems> getOrderItems(Orders order);
+
+    ArrayList<OrderItems> getOrderItems(Orders order);
 }

@@ -18,12 +18,12 @@ public class OrderController {
 
     @Autowired
     public OrderController(OrderService orderService) {
-        this.orderService = orderService ;
+        this.orderService = orderService;
     }
 
     @PostMapping(path = "/ord")
     public void addOrder(@RequestBody Orders order) {
-       orderService.addOrder(order);
+        orderService.addOrder(order);
     }
 
     @GetMapping(path = "/ord")
@@ -37,14 +37,15 @@ public class OrderController {
     }
 
     @PostMapping(path = "/item")
-    public void addItem( @RequestBody OrderItems item) {
-       orderService.addItem(item);
+    public void addItem(@RequestBody OrderItems item) {
+        orderService.addItem(item);
     }
 
     @GetMapping("/{id}/items")
     public ResponseEntity getOrderItems(@PathVariable("id") UUID id) {
         return ResponseEntity.ok(orderService.getOrderItems(id));
     }
+
     @PutMapping("/{id}/status/{status}")
     public ResponseEntity setOrderStatus(@PathVariable("id") UUID id, @PathVariable("status") String status) {
         return ResponseEntity.ok(orderService.setOrderStatus(id, status));

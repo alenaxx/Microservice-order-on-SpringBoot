@@ -18,8 +18,8 @@ import java.util.UUID;
 public class OrderService {
     private final OrderDao orderDao;
 
-  @Autowired
-   private RabbitMQPublisher rabbitMQPublisher;
+    @Autowired
+    private RabbitMQPublisher rabbitMQPublisher;
 
     private static List<String> ROUTING_KEYS = Arrays.asList(
             "order.paid",
@@ -48,7 +48,7 @@ public class OrderService {
         orderDao.addItem(items);
     }
 
-    public OrderDto getOrderByID(UUID id)  {
+    public OrderDto getOrderByID(UUID id) {
         Orders foundOrder = orderDao.getOrderById(id);
         return new OrderDto(foundOrder, orderDao.getOrderItems(foundOrder));
     }
@@ -56,7 +56,8 @@ public class OrderService {
     public ArrayList<OrderItems> getOrderItems(UUID id) {
         return orderDao.getOrderItems(getOrderByID(id));
     }
-    public OrderDto setOrderStatus(UUID id, String status)  {
+
+    public OrderDto setOrderStatus(UUID id, String status) {
         OrderDto orderDto = orderDao.setOrderStatus(getOrderByID(id), status);
 
         if (status.equals("COMPLETED") || status.equals("CANCELLED") || status.equals("PAID")) {

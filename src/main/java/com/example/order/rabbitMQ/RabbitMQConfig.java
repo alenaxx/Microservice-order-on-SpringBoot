@@ -26,7 +26,7 @@ public class RabbitMQConfig {
 
     @Bean
     Queue warehouseServiceQueue() {
-        return new Queue("order-warehouse", false);
+        return new Queue("order-warehouse", true);
     }
 
     @Bean
